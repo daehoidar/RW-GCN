@@ -8,7 +8,7 @@
 
 ## 1. 서론
 
-Knowledge Graph와 같이 relation type이 두 개 이상인 **Heterogeneous Graph**를 처리하기 위한 방법론으로 **R-GCN** (Relational Graph Convolutional Network)이 존재한다.
+Knowledge Graph와 같이 relation type이 두 개 이상인 **Heterogeneous Graph**를 처리하기 위한 방법론으로 **R-GCN** (Relational Graph Convolutional Network) [[1]](#references)이 존재한다.
 
 그러나 R-GCN은 relation별 메시지를 반복적으로 평균화하기 때문에, layer가 깊어질수록 노드 표현의 분산이 빠르게 감소하는 **over-smoothing** 문제가 발생한다. 이로 인해 R-GCN은 2~3 layer로 제한되며, 멀리 있는 노드의 정보를 전달받기 어렵다.
 
@@ -23,7 +23,7 @@ Knowledge Graph와 같이 relation type이 두 개 이상인 **Heterogeneous Gra
 
 ## 2. 핵심 이론
 
-### 2.1 기존 Graph Wavelet
+### 2.1 기존 Graph Wavelet [[2]](#references) [[3]](#references)
 
 **Wavelet Transform:**
 
@@ -91,7 +91,7 @@ $$Y = \underbrace{f\_{\text{R-GCN}}(X)}\_{\text{1-hop, relation-aware}} + \lambd
 | w/o Decay | 96.67 | 78.62 | 88.62 |
 | w/o Multi-hop (k=1) | 96.39 | 74.12 | 89.31 |
 
-RW-GCN은 **0.22%의 파라미터 증가(350개)**로 **평균 +1.22%의 성능 향상**을 달성하였다.
+RW-GCN은 **0.22%의 파라미터 증가(350개)로 평균 +1.22%의 성능 향상**을 달성하였다.
 
 AIFB와 MUTAG에서는 동일 파라미터 수의 MLP보다 높은 성능을 보여 graph 구조 활용의 효과를 확인하였으나, BGS에서는 MLP가 더 효과적이어서 데이터셋 특성에 따른 차이가 있음을 확인하였다.
 
@@ -103,3 +103,11 @@ AIFB와 MUTAG에서는 동일 파라미터 수의 MLP보다 높은 성능을 보
 - k=3으로 고정하여 실험하였으며, 데이터셋별 최적 k값 탐색이 이루어지지 않았다.
 - Ablation study 결과, learnable hop weights와 exponential decay가 모든 데이터셋에서 효과적이지는 않았다.
 - 제안한 구조가 over-smoothing을 실제로 완화하는지에 대한 이론적 분석이 부족하다.
+
+---
+
+## References
+
+1. M. Schlichtkrull et al., ["Modeling Relational Data with Graph Convolutional Networks"](https://arxiv.org/abs/1703.06103), ESWC 2018.
+2. D. K. Hammond et al., ["Wavelets on Graphs via Spectral Graph Theory"](https://arxiv.org/abs/0912.3848), Applied and Computational Harmonic Analysis, 2011.
+3. B. Xu et al., ["Graph Wavelet Neural Network"](https://arxiv.org/abs/1904.07785), ICLR 2019.
